@@ -30,21 +30,31 @@ class Field:
                 mini_field = self.field[BigY][BigX]
 
                 for i in range(3):
-                    if mini_field[i][0] == mini_field[i][1] == mini_field[i][2]:
+                    if mini_field[i][0] == mini_field[i][1] == mini_field[i][2] and mini_field[i][0] != "·":
                         self.BigField[BigY][BigX] = mini_field[i][0]
-                        break
-                    elif mini_field[0][i] == mini_field[1][i] == mini_field[2][i]:
+                        return None
+                    elif mini_field[0][i] == mini_field[1][i] == mini_field[2][i] and mini_field[0][i] != "·":
                         self.BigField[BigY][BigX] = mini_field[0][i]
-                        break
-                    elif mini_field[0][0] == mini_field[1][1] == mini_field[2][2]:
-                        self.BigField[BigY][BigX] = mini_field[i][0]
-                        break
-                    elif mini_field[2][0] == mini_field[i][1] == mini_field[0][2]:
-                        self.BigField[BigY][BigX] = mini_field[i][0]
-                        break
-                    
+                        return None
+                if mini_field[0][0] == mini_field[1][1] == mini_field[2][2] and mini_field[0][0] != "·":
+                    self.BigField[BigY][BigX] = mini_field[i][0]
+                    return None
+                if mini_field[2][0] == mini_field[i][1] == mini_field[0][2] and mini_field[2][0] != "·":
+                    self.BigField[BigY][BigX] = mini_field[i][0]
+                    return None
+                             
     def TestEndGame(self):
-        pass
+        for i in range(3):
+            if self.BigField[i][0] == self.BigField[i][1] == self.BigField[i][2] and self.BigField[i][0] != "·":
+                return True
+            elif self.BigField[0][i] == self.BigField[1][i] == self.BigField[2][i] and self.BigField[0][i] != "·":
+                return True
+        if self.BigField[0][0] == self.BigField[1][1] == self.BigField[2][2] and self.BigField[0][0] != "·":
+            return True
+        if self.BigField[2][0] == self.BigField[i][1] == self.BigField[0][2] and self.BigField[2][0] != "·":
+            return True
+        return False
+        
 
 field = Field()
 field.attack((0, 1), (0, 0), "X")
