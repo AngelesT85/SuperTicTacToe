@@ -24,12 +24,27 @@ class Field:
         mini_x, mini_y = coords_mini_field
         self.field[big_y][big_x][mini_x][mini_y] = who_attack
 
-    def IsLiveMiniField(field):
-        pass
-    
+    def TestMiniFields(self):
+        for BigY in range(3):
+            for BigX in range(3):
+                mini_field = self.field[BigY][BigX]
+
+                for i in range(3):
+                    if mini_field[i][0] == mini_field[i][1] == mini_field[i][2]:
+                        self.BigField[BigY][BigX] = mini_field[i][0]
+                        break
+                    elif mini_field[0][i] == mini_field[1][i] == mini_field[2][i]:
+                        self.BigField[BigY][BigX] = mini_field[0][i]
+                        break
+                    elif mini_field[0][0] == mini_field[1][1] == mini_field[2][2]:
+                        self.BigField[BigY][BigX] = mini_field[i][0]
+                        break
+                    elif mini_field[2][0] == mini_field[i][1] == mini_field[0][2]:
+                        self.BigField[BigY][BigX] = mini_field[i][0]
+                        break
+                    
     def TestEndGame(self):
         pass
-
 
 field = Field()
 field.attack((0, 1), (0, 0), "X")
