@@ -31,6 +31,7 @@ def SuperTicTacToe():
                         # restart the game
                         if (158 <= x <= 866) and (55 <= y <= 167):
                             print(1)
+                        
 
         pg.display.flip()
 
