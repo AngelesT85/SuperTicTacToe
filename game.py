@@ -23,6 +23,14 @@ def SuperTicTacToe():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 is_game = False
-        
+
+            elif (event.type == pg.MOUSEBUTTONDOWN) and (pg.mouse.get_pressed(num_buttons=3)[0]):
+                        x, y = pg.mouse.get_pos()
+
+                        # restart the game
+                        if (158 <= x <= 866) and (55 <= y <= 167):
+                            print(1)
+                        
+
         pg.display.flip()
 
