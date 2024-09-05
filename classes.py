@@ -2,6 +2,7 @@ class Field:
     
     def __init__(self, space_symbol="·") -> None:
         self.field = [[[[space_symbol for _ in range(3)] for _ in range(3)] for _ in range(3)] for _ in range(3)]
+        self.BigField = [[space_symbol for _ in range(3)] for _ in range(3)]
     
     def PrintFieldConsole(self):
         field = self.field
