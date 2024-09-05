@@ -24,6 +24,13 @@ class Field:
         mini_x, mini_y = coords_mini_field
         self.field[big_y][big_x][mini_x][mini_y] = who_attack
 
+    def IsLiveMiniField(field):
+        pass
+    
+    def TestEndGame(self):
+        pass
+
+
 field = Field()
 field.attack((0, 1), (0, 0), "X")
 field.PrintFieldConsole() 
