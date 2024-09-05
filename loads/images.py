@@ -5,3 +5,4 @@ def Load(img):
 
 FieldImg = Load("Field")
 TicImg = Load("Tic")
+TacToeImg = Load("TacToe")
