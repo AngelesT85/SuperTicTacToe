@@ -7,11 +7,14 @@ except:
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pygame'])
     import pygame as pg
 
+from loads.images import *
+
 def SuperTicTacToe():
     pg.init()
 
-    screen = pg.display.set_mode((900, 900))
+    screen = pg.display.set_mode((1024, 1024))
     screen.fill((255, 255, 255))
+    screen.blit(FieldImg, (0, 0))
 
     num_of_moves = 0
 
