@@ -7,7 +7,8 @@ except:
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pygame'])
     import pygame as pg
 
-from loads.images import *
+# import all images in PGfuncs.py
+from PGfuncs import *
 
 def SuperTicTacToe():
     pg.init()
@@ -27,10 +28,8 @@ def SuperTicTacToe():
 
             elif (event.type == pg.MOUSEBUTTONDOWN) and pg.mouse.get_pressed()[0]:
                 x, y = pg.mouse.get_pos()
-                for BigX in range(3):
-                    for BigY in range(3):
-                        if (143 + 257*BigX <= x <= 368 + 257*BigX) and (287 + 257*BigY <= y <= 512 + 257*BigY):
-                            print(1)
+
+                num_of_moves = UserMove((x, y), num_of_moves, figures, screen)
 
         pg.display.flip()
 
