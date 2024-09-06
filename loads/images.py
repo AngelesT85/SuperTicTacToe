@@ -12,3 +12,5 @@ BigTacToeImg = Load("BigTacToe")
 
 StrokeBlueImg = Load("StrokeBlue")
 StrokeWhiteImg = Load("StrokeWhite")
+
+RestartImg = Load("Restart")
