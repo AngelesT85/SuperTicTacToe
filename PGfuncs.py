@@ -1,4 +1,15 @@
 from loads.images import *
+from classes import Field
+import pygame as pg
+
+def RestartGame():
+    field = Field()
+    num_of_moves = 0
+    screen = pg.display.set_mode((1024, 1024))
+    screen.fill((255, 255, 255))
+    screen.blit(FieldImg, (0, 0))
+    screen.blit(RestartImg, (0, 0))
+    return field, num_of_moves, screen
 
 def UserMove(coords, num_of_moves, figures, screen):
     x, y = coords
@@ -20,5 +31,5 @@ def UserMove(coords, num_of_moves, figures, screen):
                         if (minX <= x <= maxX) and (minY <= y <= maxY):
                             screen.blit(figures[num_of_moves % 2], (minX, minY))
                             num_of_moves += 1
-                            return num_of_moves
-    return num_of_moves
+                            return num_of_moves, True
+    return num_of_moves, False
