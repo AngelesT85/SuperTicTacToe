@@ -6,3 +6,5 @@ def Load(img):
 FieldImg = Load("Field")
 TicImg = Load("Tic")
 TacToeImg = Load("TacToe")
+StrokeBlueImg = Load("StrokeBlue")
+StrokeWhiteImg = Load("StrokeWhite")
