@@ -1,3 +1,5 @@
+from random import randint
+
 class Field:
     
     def __init__(self, space_symbol="·") -> None:
@@ -18,11 +20,24 @@ class Field:
                         print(*["---", "---", "---"], sep="|", end="")
                         print(" ┃ " if LittleLine != 2 else "\n", end="")
             print("━" * 39 if BigLine != 2 else "")
+
+    def BotChoice(self, coords, player_symbol, bot_symbol):
+        field = self.field[coords[1]][coords[0]]
+        num_pl = sum([1 for i in field if i == player_symbol])
+        num_b = sum([1 for i in field if i == bot_symbol])
+        if num_pl + num_b == 0:
+            return randint(0, 9), randint(0, 9)
+        
+        
     
     def attack(self, coords_big_field, coords_mini_field, who_attack):
         big_x, big_y = coords_big_field
         mini_x, mini_y = coords_mini_field
-        self.field[big_y][big_x][mini_x][mini_y] = who_attack
+        if self.field[big_y][big_x][mini_x][mini_y] == ".":
+            self.field[big_y][big_x][mini_x][mini_y] = who_attack
+            return True
+        else:
+            return False
 
     def TestMiniFields(self):
         for BigY in range(3):
