@@ -1,5 +1,5 @@
 from loads.images import *
-from loads.settings import PGfigures, figures
+from loads.settings import PGfigures, figures, PGBigFigures
 from classes import Field
 import pygame as pg
 
@@ -35,15 +35,19 @@ def UserMove(coords, num_of_moves, screen, field, move_coords):
 
                         if (minX <= x <= maxX) and (minY <= y <= maxY):
                             result = field.attack((BigX, BigY), (LitX, LitY), figures[num_of_moves % 2])
+                            print(result)
                             if result[0]:
+                                PGfigure = PGfigures[num_of_moves % 2]
                                 field.PrintFieldConsole()
-                                screen.blit(PGfigures[num_of_moves % 2], (minX, minY))
+                                screen.blit(PGfigure, (minX, minY))
                             
                                 if move_coords:
                                     screen.blit(StrokeWhiteImg, (144 + 256*BigX, 288 + 256*BigY))
                                 move_coords = (LitX, LitY)
+
                                 if result[1]:
-                                    screen.blit(BigTicImg, (144 + 256*BigX, 288 + 256*BigY))
+                                    screen.blit(PGBigFigures[num_of_moves % 2], (144 + 256*BigX, 288 + 256*BigY))
+
                                 screen.blit(StrokeBlueImg, (144 + 256*LitX, 288 + 256*LitY))
                                 num_of_moves += 1
 
