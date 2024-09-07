@@ -53,17 +53,17 @@ class Field:
         else:
             mini_field = self.field[coords[1]][coords[0]]
             for i in range(3):
-                if mini_field[i][0] == mini_field[i][1] == mini_field[i][2] and mini_field[i][0] != "·" and self.BigField[BigY][BigX] != mini_field[i][0]:
-                    self.BigField[BigY][BigX] = mini_field[i][0]
+                if mini_field[i][0] == mini_field[i][1] == mini_field[i][2] and mini_field[i][0] != "·" and self.BigField[coords[1]][coords[0]] != mini_field[i][0]:
+                    self.BigField[coords[1]][coords[0]] = mini_field[i][0]
                     return True
-                elif mini_field[0][i] == mini_field[1][i] == mini_field[2][i] and mini_field[0][i] != "·" and self.BigField[BigY][BigX] != mini_field[0][i]:
-                    self.BigField[BigY][BigX] = mini_field[0][i]
+                elif mini_field[0][i] == mini_field[1][i] == mini_field[2][i] and mini_field[0][i] != "·" and self.BigField[coords[1]][coords[0]] != mini_field[0][i]:
+                    self.BigField[coords[1]][coords[0]] = mini_field[0][i]
                     return True
-            if mini_field[0][0] == mini_field[1][1] == mini_field[2][2] and mini_field[0][0] != "·" and self.BigField[BigY][BigX] != mini_field[0][0]:
-                self.BigField[BigY][BigX] = mini_field[0][0]
+            if mini_field[0][0] == mini_field[1][1] == mini_field[2][2] and mini_field[0][0] != "·" and self.BigField[coords[1]][coords[0]] != mini_field[0][0]:
+                self.BigField[coords[1]][coords[0]] = mini_field[0][0]
                 return True
             if mini_field[2][0] == mini_field[1][1] == mini_field[0][2] and mini_field[2][0] != "·" and self.BigField[BigY][BigX] != mini_field[2][0]:
-                self.BigField[BigY][BigX] = mini_field[2][0]
+                self.BigField[coords[1]][coords[0]] = mini_field[2][0]
                 return True
             return False
                              
@@ -132,14 +132,14 @@ class AI:
 
 
 
-field = Field()
-bot = AI()
-field.attack((0, 0), bot.BotChoice(field, ), "X")
-field.attack((0, 0), (1, 1), "X")
-field.TestMiniFields()
-print(field.TestEndGame())
-field.PrintFieldConsole() 
-print(field.BigField)
+# field = Field()
+# bot = AI()
+# # field.attack((0, 0), bot.BotChoice(field, ), "X")
+# field.attack((0, 0), (1, 1), "X")
+# field.TestMiniFields()
+# print(field.TestEndGame())
+# field.PrintFieldConsole() 
+# print(field.BigField)
 # Example of print field in terminal
 #  · | · | ·  ┃  · | · | ·  ┃  · | · | · 
 # ---|---|--- ┃ ---|---|--- ┃ ---|---|---
