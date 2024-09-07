@@ -9,7 +9,7 @@ except:
 
 # import all images in PGfuncs.py
 from PGfuncs import *
-from classes import Field 
+from classes import Field
 from loads.settings import * 
 
 def SuperTicTacToe():
@@ -49,7 +49,7 @@ def SuperTicTacToe():
                 pg.display.flip()
         
         # bot move 
-        if user_move:
+        if AI and user_move:
             pass
 
         pg.display.flip()
