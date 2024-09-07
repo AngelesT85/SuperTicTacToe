@@ -38,9 +38,10 @@ def UserMove(coords, num_of_moves, screen, field, move_coords):
                             result = field.attack((BigX, BigY), (LitX, LitY), figures[num_of_moves % 2])
 
                             if result:
-                                screen.blit(StrokeWhiteImg, move_coords)
+                                if move_coords:
+                                    screen.blit(StrokeWhiteImg, (144 + 256*BigX, 288 + 256*BigY))
                                 move_coords = (LitX, LitY)
-                                screen.blit(StrokeBlueImg, move_coords)
+                                screen.blit(StrokeBlueImg, (144 + 256*LitX, 288 + 256*LitY))
                                 num_of_moves += 1
 
                                 return num_of_moves, True, move_coords
