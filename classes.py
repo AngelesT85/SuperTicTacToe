@@ -27,7 +27,7 @@ class Field:
         print(mini_x, mini_y)
         if self.field[big_y][big_x][mini_y][mini_x] == "·":
             self.field[big_y][big_x][mini_y][mini_x] = who_attack
-            return True, self.TestMiniFields(coords=(big_y, big_x)), self.TestEndGame()
+            return True, self.TestMiniFields(testing_all=True, coords=(big_y, big_x)), self.TestEndGame()
         else:
             return False, False, False
 
@@ -144,7 +144,6 @@ class AI:
 
 
 
-<<<<<<< HEAD
 field = Field()
 bot = AI()
 a = bot.BotChoice(field, (0, 0), "O", "X")
@@ -157,16 +156,6 @@ print(field.TestEndGame())
 field.PrintFieldConsole() 
 print(field.BigField)
 print(bot.tactics_field)
-=======
-# field = Field()
-# bot = AI()
-# # field.attack((0, 0), bot.BotChoice(field, ), "X")
-# field.attack((0, 0), (1, 1), "X")
-# field.TestMiniFields()
-# print(field.TestEndGame())
-# field.PrintFieldConsole() 
-# print(field.BigField)
->>>>>>> 772f17f1405e87b7a2f205731f8dadd7bc411f04
 # Example of print field in terminal
 #  · | · | ·  ┃  · | · | ·  ┃  · | · | · 
 # ---|---|--- ┃ ---|---|--- ┃ ---|---|---
