@@ -34,15 +34,16 @@ def UserMove(coords, num_of_moves, screen, field, move_coords):
                         maxY = (AngleUp_y + 48) + 64*LitY
 
                         if (minX <= x <= maxX) and (minY <= y <= maxY):
-                            screen.blit(PGfigures[num_of_moves % 2], (minX, minY))
                             result = field.attack((BigX, BigY), (LitX, LitY), figures[num_of_moves % 2])
-
                             if result[0]:
+                                field.PrintFieldConsole()
+                                screen.blit(PGfigures[num_of_moves % 2], (minX, minY))
+                            
                                 if move_coords:
                                     screen.blit(StrokeWhiteImg, (144 + 256*BigX, 288 + 256*BigY))
                                 move_coords = (LitX, LitY)
-                                # if result[1]:
-                                #     screen.blit(PGfigures[figures.index(result[1][1])])
+                                if result[1]:
+                                    screen.blit(BigTicImg, (144 + 256*BigX, 288 + 256*BigY))
                                 screen.blit(StrokeBlueImg, (144 + 256*LitX, 288 + 256*LitY))
                                 num_of_moves += 1
 
