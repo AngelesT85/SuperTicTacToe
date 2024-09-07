@@ -48,6 +48,9 @@ def UserMove(coords, num_of_moves, screen, field, move_coords):
                                 if result[1]:
                                     screen.blit(PGBigFigures[num_of_moves % 2], (144 + 256*BigX, 288 + 256*BigY))
 
+                                    if result[2]:
+                                        pass
+
                                 screen.blit(StrokeBlueImg, (144 + 256*LitX, 288 + 256*LitY))
                                 num_of_moves += 1
 
