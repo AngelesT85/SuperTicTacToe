@@ -7,14 +7,17 @@ except:
     check_call([executable, '-m', 'pip', 'install', 'pygame'])
     import pygame as pg
 
+
 # import all images in PGfuncs.py
 from PGfuncs import *
 from classes import Field
 from loads.settings import * 
 
+
 def SuperTicTacToe():
     pg.init()
-
+    print(1)
+    
     screen = pg.display.set_mode((1024, 1024))
     screen.fill((255, 255, 255))
     screen.blit(FieldImg, (0, 0))
