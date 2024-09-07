@@ -24,6 +24,8 @@ def SuperTicTacToe():
     field = Field()
     user_move = False
 
+    move_coords = tuple()
+
     is_game = True
     while is_game:
 
@@ -39,7 +41,10 @@ def SuperTicTacToe():
                     field, num_of_moves, screen = RestartGame()
                 
                 # user move
-                num_of_moves, user_move = UserMove((x, y), num_of_moves, PGfigures, screen)
+                result = UserMove((x, y), num_of_moves, screen, field, move_coords)
+                num_of_moves = result[0]
+                user_move = result[1]
+                move_coords = result[2]
         
         # bot move 
         if user_move:
