@@ -24,7 +24,6 @@ class Field:
     def attack(self, coords_big_field, coords_mini_field, who_attack):
         big_x, big_y = coords_big_field
         mini_x, mini_y = coords_mini_field
-        print(mini_x, mini_y)
         if self.field[big_y][big_x][mini_y][mini_x] == "·" and self.BigField[big_y][big_x] == "·":
             self.field[big_y][big_x][mini_y][mini_x] = who_attack
             return True, self.TestMiniFields(coords=(big_y, big_x)), self.TestEndGame()
@@ -87,12 +86,14 @@ class AI:
 
     def BotChoice(self, Field, coords, player_symbol, bot_symbol):
         field = Field.field[coords[1]][coords[0]]
+
         field_elements = ""
         for i in field:
             for j in i:
                 field_elements += j
         num_pl = field_elements.count(player_symbol)
         num_b = field_elements.count(bot_symbol)
+
         if num_pl + num_b == 0:
             return randint(0, 2), randint(0, 2)
         
@@ -112,12 +113,12 @@ class AI:
                 choice_bot = randint(1, 2)
 
             if choice_bot == 1:
-                self.tactics_field[coords[1]][coords[0]] = "horizon"
+                self.tactics_field[coords[1]][coords[0]] = f"horizon y={coords_first_bot_attack[1]}"
                 x_coords = [0, 1, 2]
                 del x_coords[coords_first_bot_attack[0]]
                 return choice(x_coords), coords_first_bot_attack[1]
             elif choice_bot == 2:
-                self.tactics_field[coords[1]][coords[0]] = "vertical"
+                self.tactics_field[coords[1]][coords[0]] = f"vertical x={coords_first_bot_attack[0]}"
                 y_coords = [0, 1, 2]
                 del y_coords[coords_first_bot_attack[1]]
                 return coords_first_bot_attack[0], choice(y_coords)
@@ -128,23 +129,59 @@ class AI:
                 pos = choice(main_coords)
                 return pos, pos
             elif choice_bot == 4:
-                self.tactics_field[coords[1]][coords[0]] = "side diagonal"
+                self.tactics_field[coords[1]][coords[0]] = "side_diagonal"
                 side_diagonal = [(0, 2), (1, 1), (2, 0)]
                 del side_diagonal[coords_first_bot_attack[0]]
                 pos = choice(side_diagonal)
                 return pos[0], pos[1]
+            
         elif num_b == 2 and num_pl == 0:
-            if self.tactics_field[coords[1]][coords[0]] == "horizon":
-                pass
-            elif self.tactics_field[coords[1]][coords[0]] == "vertical":
-                pass
-            elif self.tactics_field[coords[1]][coords[0]] == "main_diagonal":
-                pass
-            elif self.tactics_field[coords[1]][coords[0]] == "side diagonal":
-                pass
+            tactic = self.tactics_field[coords[1]][coords[0]].split()
+
+            if tactic[0] == "horizon":
+                y_pos = int(tactic[1][-1])
+                for i in range(3):
+                    if field[y_pos][i] == "·":
+                        return i, y_pos
+            elif tactic[0] == "vertical":
+                x_pos = int(tactic[1][-1])
+                for i in range(3):
+                    if field[i][x_pos] == "·":
+                        return x_pos, i
+            elif tactic[0] == "main_diagonal":
+                for i in range(3):
+                    if field[i][i] == "·":
+                        return i, i
+            elif tactic[0] == "side_diagonal":
+                for i in [(0, 2), (1, 1), (2, 0)]:
+                    if field[i[0]][i[1]] == "·":
+                        return i[1], i[0]
+        
+        else:
+            for i in range(3):
+                if "".join(field[i]).count(player_symbol) == 2:
+                    for j in range(3):
+                        if field[i][j] == "·":
+                            return j, i
+        
+        # Алану от Алана - если ты забудешь, то, как ты хотел делалть ии, то ты дебил (зайди в заметки на телефоне)
+            
 
 
-
+# field = Field()
+# bot = AI()
+# a = bot.BotChoice(field, (0, 0), "O", "X")
+# field.attack((0, 0), a, "X")
+# b = bot.BotChoice(field, (0, 0), "O", "X")
+# field.attack((0, 0), b, "X")
+# print(bot.tactics_field)
+# c = bot.BotChoice(field, (0, 0), "O", "X")
+# field.attack((0, 0), c, "X")
+# print(a, b, c)
+# field.TestMiniFields(testing_all=True)
+# print(field.TestEndGame())
+# field.PrintFieldConsole() 
+# print(field.BigField)
 # Example of print field in terminal
 #  · | · | ·  ┃  · | · | ·  ┃  · | · | · 
 # ---|---|--- ┃ ---|---|--- ┃ ---|---|---
