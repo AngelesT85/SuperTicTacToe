@@ -49,7 +49,8 @@ def UserMove(coords, num_of_moves, screen, field, move_coords):
                                     screen.blit(PGBigFigures[num_of_moves % 2], (144 + 256*BigX, 288 + 256*BigY))
 
                                     if result[2]:
-                                        pass
+
+                                        return "WIN"
 
                                 screen.blit(StrokeBlueImg, (144 + 256*LitX, 288 + 256*LitY))
                                 num_of_moves += 1
@@ -58,3 +59,6 @@ def UserMove(coords, num_of_moves, screen, field, move_coords):
 
                         
     return num_of_moves, False, move_coords
+
+def BotMove():
+    pass
