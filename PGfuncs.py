@@ -1,4 +1,5 @@
 from loads.images import *
+from loads.settings import PGfigures, figures
 from classes import Field
 import pygame as pg
 
@@ -11,10 +12,13 @@ def RestartGame():
     screen.blit(RestartImg, (0, 0))
     return field, num_of_moves, screen
 
-def UserMove(coords, num_of_moves, figures, screen):
+def UserMove(coords, num_of_moves, screen, field, move_coords):
     x, y = coords
     for BigX in range(3):
         for BigY in range(3):
+            if move_coords:
+                if (BigX, BigY) != move_coords:
+                    continue
             if (143 + 256*BigX <= x <= 367 + 257*BigX) and (287 + 256*BigY <= y <= 511 + 257*BigY):
                 
                 # coords of left up angle of little square where user clicked
@@ -28,8 +32,18 @@ def UserMove(coords, num_of_moves, figures, screen):
 
                         minY = AngleUp_y + 64*LitY
                         maxY = (AngleUp_y + 48) + 64*LitY
+
                         if (minX <= x <= maxX) and (minY <= y <= maxY):
-                            screen.blit(figures[num_of_moves % 2], (minX, minY))
-                            num_of_moves += 1
-                            return num_of_moves, True
-    return num_of_moves, False
+                            screen.blit(PGfigures[num_of_moves % 2], (minX, minY))
+                            result = field.attack((BigX, BigY), (LitX, LitY), figures[num_of_moves % 2])
+
+                            if result:
+                                screen.blit(StrokeWhiteImg, move_coords)
+                                move_coords = (LitX, LitY)
+                                screen.blit(StrokeBlueImg, move_coords)
+                                num_of_moves += 1
+
+                                return num_of_moves, True, move_coords
+
+                        
+    return num_of_moves, False, move_coords
