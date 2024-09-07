@@ -60,8 +60,10 @@ def UserMove(coords, num_of_moves, screen, field, move_coords):
 
                                 if field.BigField[LitX][LitY] != "·":
                                     move_coords = tuple()
+                                    screen.blit(BigBlueStrokeImg, (0, 0))
                                     return num_of_moves, True, move_coords
 
+                                screen.blit(BigWhiteStrokeImg, (0, 0))
                                 screen.blit(StrokeBlueImg, (144 + 256*LitX, 288 + 256*LitY))
                                 num_of_moves += 1
 
