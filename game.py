@@ -2,12 +2,15 @@
 try:
     import pygame as pg
 except:
-    import sys
-    import subprocess
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pygame'])
+    from sys import executable
+    from subprocess import check_call
+    check_call([executable, '-m', 'pip', 'install', 'pygame'])
     import pygame as pg
 
-from loads.images import *
+# import all images in PGfuncs.py
+from PGfuncs import *
+from classes import * 
+from loads.settings import * 
 
 def SuperTicTacToe():
     pg.init()
@@ -15,22 +18,32 @@ def SuperTicTacToe():
     screen = pg.display.set_mode((1024, 1024))
     screen.fill((255, 255, 255))
     screen.blit(FieldImg, (0, 0))
-    figures = (TicImg, TacToeImg)
+    screen.blit(RestartImg, (0, 0))
+
     num_of_moves = 0
+    field = Field()
+    user_move = False
 
     is_game = True
     while is_game:
+
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 is_game = False
             
-
             elif (event.type == pg.MOUSEBUTTONDOWN) and pg.mouse.get_pressed()[0]:
                 x, y = pg.mouse.get_pos()
-                for BigX in range(3):
-                    for BigY in range(3):
-                        if (143 + 257*BigX <= x <= 368 + 257*BigX) and (287 + 257*BigY <= y <= 512 + 257*BigY):
-                            print(1)
+
+                # restart game
+                if (158 <= x <= 865) and (117 <= y <= 228):
+                    field, num_of_moves, screen = RestartGame()
+                
+                # user move
+                num_of_moves, user_move = UserMove((x, y), num_of_moves, PGfigures, screen)
+        
+        # bot move 
+        if user_move:
+            pass
 
         pg.display.flip()
 
