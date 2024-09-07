@@ -9,7 +9,7 @@ except:
 
 # import all images in PGfuncs.py
 from PGfuncs import *
-from classes import * 
+from classes import Field 
 from loads.settings import * 
 
 def SuperTicTacToe():
@@ -39,12 +39,14 @@ def SuperTicTacToe():
                 # restart game
                 if (158 <= x <= 865) and (117 <= y <= 228):
                     field, num_of_moves, screen = RestartGame()
+                    move_coords = tuple()
                 
                 # user move
                 result = UserMove((x, y), num_of_moves, screen, field, move_coords)
                 num_of_moves = result[0]
                 user_move = result[1]
                 move_coords = result[2]
+                pg.display.flip()
         
         # bot move 
         if user_move:
