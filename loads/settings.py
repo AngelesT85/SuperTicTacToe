@@ -6,6 +6,7 @@ with open("settings.json", "r", encoding="utf-8") as settings:
 
     UserFigure = settings["User figure"]
     UserFirstMove = settings["User first move"]
+
     if UserFigure == "o":
         PGfigures = (TacToeImg, TicImg)
         PGBigFigures = (BigTacToeImg, BigTicImg)
@@ -20,5 +21,6 @@ with open("settings.json", "r", encoding="utf-8") as settings:
         PGBigFigures = PGBigFigures[::-1]
         figures = figures[::-1]
 
+    AI = settings["AI"]
 
     
