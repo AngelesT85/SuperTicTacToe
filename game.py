@@ -23,7 +23,7 @@ def SuperTicTacToe():
     num_of_moves = 0
     field = Field()
     user_move = False
-
+    Play = True
     move_coords = tuple()
 
     is_game = True
@@ -41,16 +41,20 @@ def SuperTicTacToe():
                     field, num_of_moves, screen = RestartGame()
                     move_coords = tuple()
                 
+                if Play:
                 # user move
-                result = UserMove((x, y), num_of_moves, screen, field, move_coords)
-                num_of_moves = result[0]
-                user_move = result[1]
-                move_coords = result[2]
-                pg.display.flip()
+                    result = UserMove((x, y), num_of_moves, screen, field, move_coords)
+                    if result == "WIN":
+                        Play = False
+
+                    num_of_moves = result[0]
+                    user_move = result[1]
+                    move_coords = result[2]
+                    pg.display.flip()
         
         # bot move 
-        if AI and user_move:
-            pass
+        if Play and AI and user_move:
+            BotMove()
 
         pg.display.flip()
 

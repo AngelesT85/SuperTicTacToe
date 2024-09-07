@@ -35,7 +35,12 @@ def UserMove(coords, num_of_moves, screen, field, move_coords):
 
                         if (minX <= x <= maxX) and (minY <= y <= maxY):
                             result = field.attack((BigX, BigY), (LitX, LitY), figures[num_of_moves % 2])
+
+                            if not result[0]:
+                                move_coords = tuple()
+
                             print(result)
+
                             if result[0]:
                                 PGfigure = PGfigures[num_of_moves % 2]
                                 field.PrintFieldConsole()
@@ -43,13 +48,19 @@ def UserMove(coords, num_of_moves, screen, field, move_coords):
                             
                                 if move_coords:
                                     screen.blit(StrokeWhiteImg, (144 + 256*BigX, 288 + 256*BigY))
+
                                 move_coords = (LitX, LitY)
 
                                 if result[1]:
                                     screen.blit(PGBigFigures[num_of_moves % 2], (144 + 256*BigX, 288 + 256*BigY))
 
                                     if result[2]:
-                                        pass
+
+                                        return "WIN"
+
+                                if field.BigField[LitX][LitY] != "·":
+                                    move_coords = tuple()
+                                    return num_of_moves, True, move_coords
 
                                 screen.blit(StrokeBlueImg, (144 + 256*LitX, 288 + 256*LitY))
                                 num_of_moves += 1
@@ -58,3 +69,6 @@ def UserMove(coords, num_of_moves, screen, field, move_coords):
 
                         
     return num_of_moves, False, move_coords
+
+def BotMove():
+    pass
