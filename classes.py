@@ -25,9 +25,9 @@ class Field:
         big_x, big_y = coords_big_field
         mini_x, mini_y = coords_mini_field
         print(mini_x, mini_y)
-        if self.field[big_y][big_x][mini_y][mini_x] == "·":
+        if self.field[big_y][big_x][mini_y][mini_x] == "·" and self.BigField[big_y][big_x] == "·":
             self.field[big_y][big_x][mini_y][mini_x] = who_attack
-            return True, self.TestMiniFields(testing_all=True, coords=(big_y, big_x)), self.TestEndGame()
+            return True, self.TestMiniFields(coords=(big_y, big_x)), self.TestEndGame()
         else:
             return False, False, False
 
@@ -52,19 +52,19 @@ class Field:
                         return True
             return False
         else:
-            mini_field = self.field[coords[1]][coords[0]]
+            mini_field = self.field[coords[0]][coords[1]]
             for i in range(3):
-                if mini_field[i][0] == mini_field[i][1] == mini_field[i][2] and mini_field[i][0] != "·" and self.BigField[coords[1]][coords[0]] != mini_field[i][0]:
-                    self.BigField[coords[1]][coords[0]] = mini_field[i][0]
+                if mini_field[i][0] == mini_field[i][1] == mini_field[i][2] and mini_field[i][0] != "·" and self.BigField[coords[0]][coords[1]] != mini_field[i][0]:
+                    self.BigField[coords[0]][coords[1]] = mini_field[i][0]
                     return True
-                elif mini_field[0][i] == mini_field[1][i] == mini_field[2][i] and mini_field[0][i] != "·" and self.BigField[coords[1]][coords[0]] != mini_field[0][i]:
-                    self.BigField[coords[1]][coords[0]] = mini_field[0][i]
+                elif mini_field[0][i] == mini_field[1][i] == mini_field[2][i] and mini_field[0][i] != "·" and self.BigField[coords[0]][coords[1]] != mini_field[0][i]:
+                    self.BigField[coords[0]][coords[1]] = mini_field[0][i]
                     return True
-            if mini_field[0][0] == mini_field[1][1] == mini_field[2][2] and mini_field[0][0] != "·" and self.BigField[coords[1]][coords[0]] != mini_field[0][0]:
-                self.BigField[coords[1]][coords[0]] = mini_field[0][0]
+            if mini_field[0][0] == mini_field[1][1] == mini_field[2][2] and mini_field[0][0] != "·" and self.BigField[coords[0]][coords[1]] != mini_field[0][0]:
+                self.BigField[coords[0]][coords[1]] = mini_field[0][0]
                 return True
-            if mini_field[2][0] == mini_field[1][1] == mini_field[0][2] and mini_field[2][0] != "·" and self.BigField[BigY][BigX] != mini_field[2][0]:
-                self.BigField[coords[1]][coords[0]] = mini_field[2][0]
+            if mini_field[2][0] == mini_field[1][1] == mini_field[0][2] and mini_field[2][0] != "·" and self.BigField[coords[0]][coords[1]] != mini_field[2][0]:
+                self.BigField[coords[0]][coords[1]] = mini_field[2][0]
                 return True
             return False
                              
@@ -91,15 +91,12 @@ class AI:
         for i in field:
             for j in i:
                 field_elements += j
-        print(field_elements)
         num_pl = field_elements.count(player_symbol)
-        print(field)
         num_b = field_elements.count(bot_symbol)
         if num_pl + num_b == 0:
             return randint(0, 2), randint(0, 2)
         
         elif num_b == 1 and num_pl == 0:
-            print("---------------------")
             coords_first_bot_attack = None
             for i in range(3):
                 for j in range(3):
@@ -115,47 +112,39 @@ class AI:
                 choice_bot = randint(1, 2)
 
             if choice_bot == 1:
-                print(1)
                 self.tactics_field[coords[1]][coords[0]] = "horizon"
                 x_coords = [0, 1, 2]
                 del x_coords[coords_first_bot_attack[0]]
                 return choice(x_coords), coords_first_bot_attack[1]
             elif choice_bot == 2:
-                print(2)
                 self.tactics_field[coords[1]][coords[0]] = "vertical"
                 y_coords = [0, 1, 2]
                 del y_coords[coords_first_bot_attack[1]]
                 return coords_first_bot_attack[0], choice(y_coords)
             elif choice_bot == 3:
-                print(3)
                 self.tactics_field[coords[1]][coords[0]] = "main_diagonal"
                 main_coords = [0, 1, 2]
                 del main_coords[coords_first_bot_attack[0]]
                 pos = choice(main_coords)
                 return pos, pos
             elif choice_bot == 4:
-                print(4)
                 self.tactics_field[coords[1]][coords[0]] = "side diagonal"
                 side_diagonal = [(0, 2), (1, 1), (2, 0)]
                 del side_diagonal[coords_first_bot_attack[0]]
-                return side_diagonal[0], side_diagonal[1]
+                pos = choice(side_diagonal)
+                return pos[0], pos[1]
         elif num_b == 2 and num_pl == 0:
-            return "A", "A"
+            if self.tactics_field[coords[1]][coords[0]] == "horizon":
+                pass
+            elif self.tactics_field[coords[1]][coords[0]] == "vertical":
+                pass
+            elif self.tactics_field[coords[1]][coords[0]] == "main_diagonal":
+                pass
+            elif self.tactics_field[coords[1]][coords[0]] == "side diagonal":
+                pass
 
 
 
-field = Field()
-bot = AI()
-a = bot.BotChoice(field, (0, 0), "O", "X")
-field.attack((0, 0), a, "X")
-b = bot.BotChoice(field, (0, 0), "O", "X")
-field.attack((0, 0), b, "X")
-print(a, b)
-field.TestMiniFields(testing_all=True)
-print(field.TestEndGame())
-field.PrintFieldConsole() 
-print(field.BigField)
-print(bot.tactics_field)
 # Example of print field in terminal
 #  · | · | ·  ┃  · | · | ·  ┃  · | · | · 
 # ---|---|--- ┃ ---|---|--- ┃ ---|---|---
