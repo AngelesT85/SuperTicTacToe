@@ -33,7 +33,7 @@ class Field:
     def attack(self, coords_big_field, coords_mini_field, who_attack):
         big_x, big_y = coords_big_field
         mini_x, mini_y = coords_mini_field
-        if self.field[big_y][big_x][mini_x][mini_y] == ".":
+        if self.field[big_y][big_x][mini_x][mini_y] == "·":
             self.field[big_y][big_x][mini_x][mini_y] = who_attack
             return True
         else:
