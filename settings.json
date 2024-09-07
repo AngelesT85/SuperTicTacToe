@@ -1,4 +1,5 @@
 {
     "User figure": "o",
-    "User first move": true
+    "User first move": true,
+    "AI": false
 }
