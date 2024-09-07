@@ -89,7 +89,7 @@ class AI:
         num_pl = sum([1 for i in field if i == player_symbol])
         num_b = sum([1 for i in field if i == bot_symbol])
         if num_pl + num_b == 0:
-            return randint(0, 9), randint(0, 9)
+            return randint(0, 2), randint(0, 2)
         
         elif num_b == 1 and num_pl == 0:
             coords_first_bot_attack = None
@@ -128,15 +128,18 @@ class AI:
                 del side_diagonal[coords_first_bot_attack[0]]
                 return side_diagonal[0], side_diagonal[1]
         elif num_b == 2 and num_pl == 0:
-            pass
+            return "A", "A"
 
 
 
 field = Field()
 bot = AI()
-field.attack((0, 0), bot.BotChoice(field, ), "X")
-field.attack((0, 0), (1, 1), "X")
-field.TestMiniFields()
+a = bot.BotChoice(field, (0, 0), "O", "X")
+field.attack((0, 0), a, "X")
+b = bot.BotChoice(field, (0, 0), "O", "X")
+field.attack((0, 0), b, "X")
+print(a, b)
+field.TestMiniFields(testing_all=True)
 print(field.TestEndGame())
 field.PrintFieldConsole() 
 print(field.BigField)
