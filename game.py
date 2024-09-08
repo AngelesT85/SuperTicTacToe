@@ -43,21 +43,30 @@ def SuperTicTacToe(UserFirstMove):
                 # restart game
                 if (158 <= x <= 865) and (117 <= y <= 228):
                     field, num_of_moves, screen = RestartGame()
+                    Play = True
                     move_coords = tuple()
                 
                 if UserFirstMove and Play:
-                # user move
+                    # user move
                     result = Move((x, y), num_of_moves, screen, field, move_coords)
+
                     if result == "WIN":
                         Play = False
+                        break
 
-                    num_of_moves = result[0]
-                    user_move = result[1]
-                    move_coords = result[2]
-                    print(move_coords)
-                    pg.display.flip()
+                    else:
+                        num_of_moves = result[0]
+                        user_move = result[1]
+                        move_coords = result[2]
+
+                        if move_coords:
+                            if field.BigField[move_coords[0]][move_coords[1]] != "·":
+                                move_coords = tuple()
+
+                        pg.display.flip()
                 else:
                     UserFirstMove = True
+                print(Play)
         
         # bot move 
         if Play and AI and user_move:
@@ -69,22 +78,21 @@ def SuperTicTacToe(UserFirstMove):
                 LitX, LitY = BigX + 64*col, BigY + 64*string
 
                 print(LitX, LitY)
-                Move((LitX, LitY), num_of_moves, screen, field, move_coords)
-                move_coords = col, string
-                num_of_moves += 1
+                num_of_moves, _, move_coords = Move((LitX, LitY), num_of_moves, screen, field, move_coords)
 
             else:
-                RandomBigX = randint(0, 2)
-                RandomBigY = randint(0, 2)
+                while True:
+                    RandomBigX = randint(0, 2)
+                    RandomBigY = randint(0, 2)
+                    if field.BigField[RandomBigY][RandomBigX] == "·":
+                        break
                 col, string = field.BotChoice((RandomBigX, RandomBigY), figures[num_of_moves % 2], figures[(num_of_moves % 2) - 1])
 
                 BigX, BigY = 168 + 256*RandomBigX, 312 + 256*RandomBigY
                 LitX, LitY = BigX + 64*col, BigY + 64*string
 
-                Move((LitX, LitY), num_of_moves, screen, field, move_coords)
-                num_of_moves += 1
+                num_of_moves, _, move_coords = Move((LitX, LitY), num_of_moves, screen, field, move_coords)
 
-                move_coords = col, string
             print(move_coords)
             user_move = False
             pg.display.flip()
