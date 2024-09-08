@@ -7,6 +7,8 @@ except:
     check_call([executable, '-m', 'pip', 'install', 'pygame'])
     import pygame as pg
 
+from random import randint
+from time import sleep
 
 # import all images in PGfuncs.py
 from PGfuncs import *
@@ -14,9 +16,8 @@ from classes import Field
 from loads.settings import * 
 
 
-def SuperTicTacToe():
+def SuperTicTacToe(UserFirstMove):
     pg.init()
-    print(1)
     
     screen = pg.display.set_mode((1024, 1024))
     screen.fill((255, 255, 255))
@@ -46,24 +47,53 @@ def SuperTicTacToe():
                 
                 if UserFirstMove and Play:
                 # user move
-                    result = UserMove((x, y), num_of_moves, screen, field, move_coords)
+                    result = Move((x, y), num_of_moves, screen, field, move_coords)
                     if result == "WIN":
                         Play = False
 
                     num_of_moves = result[0]
                     user_move = result[1]
                     move_coords = result[2]
+                    print(move_coords)
                     pg.display.flip()
                 else:
                     UserFirstMove = True
         
         # bot move 
         if Play and AI and user_move:
-            BotMove()
+            sleep(1)
+            if move_coords:
+                col, string = field.BotChoice(move_coords, figures[num_of_moves % 2], figures[(num_of_moves % 2) - 1])
+
+                BigX, BigY = 168 + 256*move_coords[0], 312 + 256*move_coords[1]
+                LitX, LitY = BigX + 64*col, BigY + 64*string
+
+                print(LitX, LitY)
+                Move((LitX, LitY), num_of_moves, screen, field, move_coords)
+                move_coords = col, string
+                num_of_moves += 1
+
+            else:
+                RandomBigX = randint(0, 2)
+                RandomBigY = randint(0, 2)
+                col, string = field.BotChoice((RandomBigX, RandomBigY), figures[num_of_moves % 2], figures[(num_of_moves % 2) - 1])
+
+                BigX, BigY = 168 + 256*RandomBigX, 312 + 256*RandomBigY
+                LitX, LitY = BigX + 64*col, BigY + 64*string
+
+                Move((LitX, LitY), num_of_moves, screen, field, move_coords)
+                num_of_moves += 1
+
+                move_coords = col, string
+            print(move_coords)
+            user_move = False
+            pg.display.flip()
+
+            
 
         pg.display.flip()
 
-SuperTicTacToe()
+SuperTicTacToe(UserFirstMove)
 # 168 312
 # 232 312
 
