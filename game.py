@@ -46,7 +46,7 @@ def SuperTicTacToe(UserFirstMove):
                     Play = True
                     move_coords = tuple()
                 
-                if UserFirstMove and Play:
+                elif UserFirstMove and Play:
                     # user move
                     result = Move((x, y), num_of_moves, screen, field, move_coords)
 
