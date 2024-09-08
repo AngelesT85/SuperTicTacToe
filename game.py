@@ -44,7 +44,7 @@ def SuperTicTacToe():
                     field, num_of_moves, screen = RestartGame()
                     move_coords = tuple()
                 
-                if Play:
+                if UserFirstMove and Play:
                 # user move
                     result = UserMove((x, y), num_of_moves, screen, field, move_coords)
                     if result == "WIN":
@@ -54,6 +54,8 @@ def SuperTicTacToe():
                     user_move = result[1]
                     move_coords = result[2]
                     pg.display.flip()
+                else:
+                    UserFirstMove = True
         
         # bot move 
         if Play and AI and user_move:
