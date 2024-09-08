@@ -12,7 +12,7 @@ def RestartGame():
     screen.blit(RestartImg, (0, 0))
     return field, num_of_moves, screen
 
-def UserMove(coords, num_of_moves, screen, field, move_coords):
+def Move(coords, num_of_moves, screen, field, move_coords):
     x, y = coords
     for BigX in range(3):
         for BigY in range(3):
