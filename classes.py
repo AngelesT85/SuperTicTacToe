@@ -21,7 +21,7 @@ class Field:
                         print(" ┃ " if LittleLine != 2 else "\n", end="")
             print("━" * 39 if BigLine != 2 else "")
              
-    def attack(self, coords_big_field, coords_mini_field, who_attack):
+    def attack(self, coords_big_field, coords_mini_field, who_attack): #атаковать куда-то кем-то
         big_x, big_y = coords_big_field
         mini_x, mini_y = coords_mini_field
         if self.field[big_y][big_x][mini_y][mini_x] == "·" and self.BigField[big_y][big_x] == "·":
@@ -30,7 +30,7 @@ class Field:
         else:
             return False, False, False
 
-    def TestMiniFields(self, testing_all=False, coords=None):
+    def TestMiniFields(self, testing_all=False, coords=None): # возвращает Тру или Фалзе в зависимости от того закончилась ли игра (для маленьких полей)
         if testing_all:
             for BigY in range(3):
                 for BigX in range(3):
@@ -67,7 +67,7 @@ class Field:
                 return True
             return False
                              
-    def TestEndGame(self):
+    def TestEndGame(self): # возвращает Тру или Фалзе в зависимости от того закончилась ли игра (для больших полей)
         for i in range(3):
             if self.BigField[i][0] == self.BigField[i][1] == self.BigField[i][2] and self.BigField[i][0] != "·":
                 return True
@@ -79,7 +79,7 @@ class Field:
             return True
         return False
 
-    def BotChoice(self, coords, player_symbol, bot_symbol):
+    def BotChoice(self, coords, player_symbol, bot_symbol): # возвращает col и string в мальньком поле, в котором атакует бот
         field = self.field[coords[1]][coords[0]]
 
         field_elements = ""
@@ -159,8 +159,7 @@ class Field:
                 if field[coords[0]][coords[1]] == "·":
                     return coords[1], coords[0]
             
-
-    def SecondAttack(self, field, symbol):
+    def SecondAttack(self, field, symbol): # используется в BotChoice
         coords_first_bot_attack = None
         for i in range(3):
             for j in range(3):
@@ -194,7 +193,7 @@ class Field:
             pos = choice(side_diagonal)
             return pos[0], pos[1]
     
-    def ThirdAttack(self, field, symbol):
+    def ThirdAttack(self, field, symbol): # используется в BotChoice
         for i in range(3):
             if "".join(field[i]).count(symbol) == 2:
                 for j in range(3):
