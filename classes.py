@@ -6,6 +6,11 @@ class Field:
         self.field = [[[[space_symbol for _ in range(3)] for _ in range(3)] for _ in range(3)] for _ in range(3)]
         self.BigField = [[space_symbol for _ in range(3)] for _ in range(3)]
     
+    def PrintBigField(self):
+        for string in range(3):
+            print(*self.BigField[string], sep="|")
+            print("---------------")
+
     def PrintFieldConsole(self):
         field = self.field
         for BigLine in range(3):
