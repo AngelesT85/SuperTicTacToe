@@ -70,7 +70,7 @@ def SuperTicTacToe(UserFirstMove):
         
         # bot move 
         if Play and AI and user_move:
-            sleep(1)
+            sleep(3)
             if move_coords:
                 col, string = field.BotChoice(move_coords, figures[num_of_moves % 2], figures[(num_of_moves % 2) - 1])
 
