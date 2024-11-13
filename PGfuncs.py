@@ -53,15 +53,17 @@ def Move(coords, num_of_moves, screen, field, move_coords):
                             
                                 if move_coords:
                                     screen.blit(StrokeWhiteImg, (144 + 256*BigX, 288 + 256*BigY))
-
+                                
+                                # if win in moni square
                                 if result[1]:
                                     screen.blit(PGBigFigures[num_of_moves % 2], (144 + 256*BigX, 288 + 256*BigY))
-
+                                    
+                                    # if win game
                                     if result[2]:
 
                                         return "WIN"
                                 
-                                                                # if cell where we send enemy is full
+                                # if cell where we send enemy is full
                                 if field.BigField[LitX][LitY] != "·":
                                     move_coords = tuple()
                                     screen.blit(BigBlueStrokeImg, (0, 0))
